@@ -149,8 +149,55 @@ function deleteCigar(index) {
 
 // Edit cigar (demo)
 function editCigar(index) {
+    if (!cigarData[index]) {
+        console.error("Invalid index:", index);
+        return;
+    }
+    console.log("editCigar called", index);
     const cigar = cigarData[index];
-    alert(`Editing cigar: ${cigar.name}\nBrand: ${cigar.brand}\nThis feature is under development.`);
+    
+    // 創建模態容器
+    const modal = document.createElement('div');
+    modal.style.cssText = 'position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%); background: white; padding: 20px; border: 1px solid #ccc; z-index: 1000;';
+    
+    // 創建編輯表單
+    const form = document.createElement('form');
+    form.innerHTML = `
+        <h3>Edit Cigar</h3>
+        <label>Name: <input type="text" name="name" value="${cigar.name}" required></label><br>
+        <label>Brand: <input type="text" name="brand" value="${cigar.brand}" required></label><br>
+        <label>Production Date: <input type="date" name="productionDate" value="${cigar.productionDate}" required></label><br>
+        <label>Quantity: <input type="number" name="quantity" value="${cigar.quantity}" min="1" required></label><br>
+        <label>Price: <input type="number" name="price" value="${cigar.price}" step="0.01" min="0" required></label><br>
+        <label>Rating: <input type="number" name="rating" value="${cigar.rating}" step="0.1" min="0" max="5" required></label><br>
+        <button type="submit">Save</button>
+        <button type="button" id="cancelBtn">Cancel</button>
+    `;
+    
+    // 處理表單提交
+    form.onsubmit = (e) => {
+        e.preventDefault();
+        cigarData[index] = {
+            name: form.querySelector('[name="name"]').value,
+            brand: form.querySelector('[name="brand"]').value,
+            productionDate: form.querySelector('[name="productionDate"]').value,
+            quantity: parseInt(form.querySelector('[name="quantity"]').value),
+            price: parseFloat(form.querySelector('[name="price"]').value),
+            rating: parseFloat(form.querySelector('[name="rating"]').value)
+        };
+        saveToLocalStorage();
+        renderCigarTable();
+        updateStats();
+        modal.remove();
+        alert('Cigar updated successfully!');
+    };
+    
+    // 取消按鈕
+    form.querySelector('#cancelBtn').onclick = () => modal.remove();
+    
+    // 將表單添加到模態
+    modal.appendChild(form);
+    document.body.appendChild(modal);
 }
 
 // Update statistics
