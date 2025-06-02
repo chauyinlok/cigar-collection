@@ -1,52 +1,80 @@
-# Cigar Collection Management System
+# 🥃 Cigar Collection Manager
 
-This is a personal cigar collection tracking system built with **HTML**, **CSS**, and **JavaScript**. It allows you to view, manage, and analyze a static dataset of premium cigars with details such as quantity, brand, production date, pricing, and rating.
-
-## 📁 Contents
-
-- `index.html` – Main HTML structure of the system.
-- `style.css` – Visual styles and layout.
-- `script.js` – JavaScript logic to render data and interactivity.
-- `README.md` – This file.
-
-## ⚠️ Limitations When Using GitHub Pages
-
-This is a **static frontend project** with no backend or database. If you plan to host it using **GitHub Pages**, please note the following:
-
-### 🔒 Data Persistence
-
-- The cigar list (`cigarData`) is hard-coded in `script.js`.  
-- Any changes (like adding, editing, or deleting cigars) **will not persist** after refreshing the page.
-- GitHub Pages does **not** support writing or saving data dynamically.  
-- To make changes permanent, you'll need to manually update the JavaScript file and re-upload or commit the changes.
-
-### 🔐 Privacy Considerations
-
-- Do **not** upload sensitive personal collection information if the repository is public.
-- All data in a public GitHub repo is visible to everyone.
-- Consider making your repository **private** if your cigar collection is personal or valuable.
-
-### 📊 Intended Use
-
-- Best used as a personal display project or prototype.
-- Great for managing a demo set of cigars or learning how to build a data dashboard.
-- For full functionality (persistent storage, authentication, cloud access), consider adding a backend (e.g., Firebase, Supabase, Node.js).
-
-## 🚀 Deploying to GitHub Pages
-
-1. Push all files to your GitHub repository.
-2. Go to **Settings** → **Pages**.
-3. Select your branch and root folder (`/`).
-4. Visit the generated link to view your app live.
-
-## 🛠️ Future Enhancements (Suggestions)
-
-- Add a backend API for persistent data (MongoDB, Supabase, etc.)
-- Implement a modal form to create/edit cigars
-- Add user authentication to secure private collections
-- Export/import data to/from JSON or CSV
+A simple, elegant web-based app for managing a personal cigar collection. Built with HTML, CSS, and JavaScript — no frameworks, no server — everything runs in your browser.
 
 ---
 
-**Created by a cigar enthusiast.**  
-Feel free to fork and customize this project!
+## 📂 File Structure
+
+- `index.html` – Main HTML layout and structure
+- `style.css` – Styling for the interface and components
+- `script.js` – App logic (data handling, UI updates, localStorage)
+
+---
+
+## ✨ Features
+
+- View a table of premium cigars with attributes:
+  - Name, Brand, Production Date, Quantity, Price, and Rating
+- Add new cigars with random attributes (demo)
+- Edit and delete existing entries (edit is currently a placeholder)
+- Live statistics:
+  - Total cigars
+  - Unique brands
+  - Average rating
+  - Total value
+- Visual star ratings (★)
+- Fully responsive layout (mobile-friendly)
+- Persistent data storage using `localStorage`
+
+---
+
+## ⚠️ GitHub Pages / localStorage Constraints
+
+This project uses **`localStorage`** to persist data between page reloads.
+
+### Key implications:
+
+- ✅ **Local Testing:** Your entries persist as expected.
+- ✅ **GitHub Pages Hosting:** Works the same — data persists **per browser per user**.
+- ❌ **Data is NOT shared across devices** or users (no backend or cloud).
+- ❌ Clearing browser cache or storage will erase the data.
+- ✅ A “Reset” button is provided to restore the original dataset.
+
+For multi-user or shared access, you'd need to integrate a **backend/database** (e.g. Firebase, Supabase, MongoDB).
+
+---
+
+## 🚀 Usage
+
+1. Clone or download this repository.
+2. Open `index.html` in a browser.
+3. Click **Add New Cigar** to test the form.
+4. Use the table buttons to interact with cigars.
+5. Click **Reset Data** if you want to restore the original cigars.
+
+---
+
+## 📌 To-Do (Future Features)
+
+- [ ] Implement full modal-based cigar editor
+- [ ] Search and filter cigars
+- [ ] Import/export JSON for backup
+- [ ] Tagging and categorization
+- [ ] Image upload (optional)
+- [ ] Cloud sync or login
+
+---
+
+## 🛠 Built With
+
+- HTML5
+- CSS3
+- JavaScript (ES6)
+- Font Awesome (icons)
+
+---
+
+## 📄 License
+
+This project is open source and free to use under the MIT License.
