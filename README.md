@@ -57,6 +57,8 @@ For multi-user or shared access, you'd need to integrate a **backend/database** 
 
 ## 📌 To-Do (Future Features)
 
+- [ ] Fix the Edit button
+
 - [ ] Implement full modal-based cigar editor
 - [ ] Search and filter cigars
 - [ ] Import/export JSON for backup
