@@ -1,5 +1,5 @@
-// 雪茄数据
-const cigarData = [
+// Load from localStorage or use default data
+let cigarData = JSON.parse(localStorage.getItem('cigarData')) || [
     {
         name: "Cohiba Siglo VI",
         brand: "Cohiba",
@@ -66,7 +66,12 @@ const cigarData = [
     }
 ];
 
-// 生成星级评分HTML
+// Save data to localStorage
+function saveToLocalStorage() {
+    localStorage.setItem('cigarData', JSON.stringify(cigarData));
+}
+
+// Generate star rating
 function generateRatingStars(rating) {
     let starsHtml = '';
     const fullStars = Math.floor(rating);
@@ -88,7 +93,7 @@ function generateRatingStars(rating) {
     return starsHtml;
 }
 
-// 渲染表格
+// Render table
 function renderCigarTable() {
     const tableBody = document.getElementById('cigarTableBody');
     tableBody.innerHTML = '';
@@ -115,22 +120,7 @@ function renderCigarTable() {
     });
 }
 
-// 删除雪茄
-function deleteCigar(index) {
-    if (confirm('Are you sure you want to delete this cigar?')) {
-        cigarData.splice(index, 1);
-        renderCigarTable();
-        updateStats();
-    }
-}
-
-// 编辑雪茄（演示功能）
-function editCigar(index) {
-    const cigar = cigarData[index];
-    alert(`Editing cigar: ${cigar.name}\nBrand: ${cigar.brand}\nThis feature is under development.`);
-}
-
-// 添加新雪茄
+// Add new cigar
 function addNewCigar() {
     const newCigar = {
         name: "New Limited Edition",
@@ -138,15 +128,32 @@ function addNewCigar() {
         productionDate: "2023-01-15",
         quantity: Math.floor(Math.random() * 10) + 1,
         price: Math.floor(Math.random() * 50) + 20,
-        rating: parseFloat((Math.random() * 2 + 3).toFixed(1))
+        rating: parseFloat((Math.random() * 2 + 3).toFixed(1)) // Random 3.0–5.0
     };
 
     cigarData.unshift(newCigar);
+    saveToLocalStorage();
     renderCigarTable();
     updateStats();
 }
 
-// 更新统计数据
+// Delete cigar
+function deleteCigar(index) {
+    if (confirm('Are you sure you want to delete this cigar?')) {
+        cigarData.splice(index, 1);
+        saveToLocalStorage();
+        renderCigarTable();
+        updateStats();
+    }
+}
+
+// Edit cigar (demo)
+function editCigar(index) {
+    const cigar = cigarData[index];
+    alert(`Editing cigar: ${cigar.name}\nBrand: ${cigar.brand}\nThis feature is under development.`);
+}
+
+// Update statistics
 function updateStats() {
     const totalCigars = cigarData.reduce((sum, cigar) => sum + cigar.quantity, 0);
     const uniqueBrands = new Set(cigarData.map(cigar => cigar.brand)).size;
@@ -159,9 +166,18 @@ function updateStats() {
     document.querySelectorAll('.stat-card')[3].querySelector('.stat-value').textContent = `$${totalValue.toLocaleString()}`;
 }
 
-// 初始化
+// Optional: Reset to original data
+function resetToDefault() {
+    if (confirm('Reset to original cigar data? This will erase all changes.')) {
+        localStorage.removeItem('cigarData');
+        location.reload();
+    }
+}
+
+// Initialize
 document.addEventListener('DOMContentLoaded', () => {
     renderCigarTable();
     updateStats();
+
     document.getElementById('addCigarBtn').addEventListener('click', addNewCigar);
 });
